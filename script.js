@@ -4,6 +4,8 @@
  *
  *********************************************************************************/
 
+let score = 0;
+
 /**
  * Cette fonction affiche dans la console le score de l'utilisateur
  * @param {number} score : le score de l'utilisateur
@@ -15,6 +17,17 @@
  * dans la zone "zoneProposition"
  * @param {string} proposition : la proposition à afficher
  */
+
+for (let i = 0; i < listeMots.length; i++) {
+  let propositionMot = prompt(`Tapez le mot: ${listeMots[i]}`).toLowerCase();
+
+  if (propositionMot === listeMots[i]) {
+    score++;
+    console.log("bravo", score);
+  } else {
+    console.log(`Dommage ! Le mot correct était: ${listeMots[i]}`);
+  }
+}
 
 /**
  * Cette fonction construit et affiche l'email.
