@@ -12,25 +12,52 @@ let score = 0;
  * @param {number} nbMotsProposes : le nombre de mots proposés à l'utilisateur
  */
 
+let afficherResultat = (score, nbMotsProposes) => {
+  prompt(`Votre score est de: ${score} / ${nbMotsProposes}`);
+};
+
 /**
  * Cette fonction affiche une proposition, que le joueur devra recopier,
  * dans la zone "zoneProposition"
  * @param {string} proposition : la proposition à afficher
  */
 
-for (let i = 0; i < listeMots.length; i++) {
-  let propositionMot = prompt(`Tapez le mot: ${listeMots[i]}`).toLowerCase();
+let afficheProposition = (listePropositions) => {
+  for (let i = 0; i < listePropositions.length; i++) {
+    let proposition = prompt(`Tapez la proposition: ${listePropositions[i]}`);
 
-  if (propositionMot === listeMots[i]) {
-    score++;
-    console.log("bravo", `, score = ${score}`);
-  } else {
-    console.log(
-      `Dommage ! Le mot correct était: ${listeMots[i]}`,
-      `, score = ${score}`
+    if (proposition === listePropositions[i]) {
+      score++;
+    }
+  }
+  afficherResultat(score, listePropositions.length);
+};
+
+/**
+ * Cette fonction demande à l'utilisateur s'il veut jouer avec des phrases ou des mots"
+ * @param {string} choixUtilisateur : le choix choisi
+ */
+
+let choisirPhrasesOuMots = () => {
+  let choixUtilisateur = prompt(
+    "Voulez-vous des phrases ou des mots ? tapez votre souhait svp"
+  );
+  while (choixUtilisateur !== "mots" && choixUtilisateur !== "phrases") {
+    choixUtilisateur = prompt(
+      "Voulez-vous des phrases ou des mots ? tapez votre souhait svp"
     );
   }
-}
+  // return choixUtilisateur;
+  if (choixUtilisateur === "mots") {
+    afficheProposition(listeMots);
+  } else {
+    afficheProposition(listePhrases);
+  }
+};
+
+choisirPhrasesOuMots();
+
+// POPUP FORMULAIRE:
 
 /**
  * Cette fonction construit et affiche l'email.
