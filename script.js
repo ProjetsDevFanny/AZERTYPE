@@ -23,9 +23,12 @@ for (let i = 0; i < listeMots.length; i++) {
 
   if (propositionMot === listeMots[i]) {
     score++;
-    console.log("bravo", score);
+    console.log("bravo", `, score = ${score}`);
   } else {
-    console.log(`Dommage ! Le mot correct était: ${listeMots[i]}`);
+    console.log(
+      `Dommage ! Le mot correct était: ${listeMots[i]}`,
+      `, score = ${score}`
+    );
   }
 }
 
