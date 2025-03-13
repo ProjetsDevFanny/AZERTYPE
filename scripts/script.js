@@ -4,10 +4,8 @@
  *
  *********************************************************************************/
 
-let score = 0;
-
 /**
- * Cette fonction affiche dans la console le score de l'utilisateur
+ * Cette fonction affiche le score de l'utilisateur
  * @param {number} score : le score de l'utilisateur
  * @param {number} nbMotsProposes : le nombre de mots proposés à l'utilisateur
  */
@@ -17,12 +15,30 @@ let afficherResultat = (score, nbMotsProposes) => {
 };
 
 /**
- * Cette fonction affiche une proposition, que le joueur devra recopier,
- * dans la zone "zoneProposition"
- * @param {string} proposition : la proposition à afficher
+ * Cette fonction demande à l'utilisateur s'il veut jouer avec des phrases ou des mots"
+ * @param {string} choix : le choix choisi
  */
 
-let afficheProposition = (listePropositions) => {
+let choisirPhrasesOuMots = () => {
+  let choix = prompt(
+    "Voulez-vous des phrases ou des mots ? tapez votre souhait svp"
+  );
+  while (choix !== "mots" && choix !== "phrases") {
+    choix = prompt(
+      "Voulez-vous des phrases ou des mots ? tapez votre souhait svp"
+    );
+  }
+  return choix;
+};
+
+/**
+ * Cette fonction affiche une proposition, que le joueur devra recopier,
+ * dans la zone "zoneProposition"
+ * @param {string} listePropositions : la proposition à afficher
+ */
+
+let lancerBoucleDeJeu = (listePropositions) => {
+  let score = 0;
   for (let i = 0; i < listePropositions.length; i++) {
     let proposition = prompt(`Tapez la proposition: ${listePropositions[i]}`);
 
@@ -30,32 +46,8 @@ let afficheProposition = (listePropositions) => {
       score++;
     }
   }
-  afficherResultat(score, listePropositions.length);
+  return score;
 };
-
-/**
- * Cette fonction demande à l'utilisateur s'il veut jouer avec des phrases ou des mots"
- * @param {string} choixUtilisateur : le choix choisi
- */
-
-let choisirPhrasesOuMots = () => {
-  let choixUtilisateur = prompt(
-    "Voulez-vous des phrases ou des mots ? tapez votre souhait svp"
-  );
-  while (choixUtilisateur !== "mots" && choixUtilisateur !== "phrases") {
-    choixUtilisateur = prompt(
-      "Voulez-vous des phrases ou des mots ? tapez votre souhait svp"
-    );
-  }
-  // return choixUtilisateur;
-  if (choixUtilisateur === "mots") {
-    afficheProposition(listeMots);
-  } else {
-    afficheProposition(listePhrases);
-  }
-};
-
-choisirPhrasesOuMots();
 
 // POPUP FORMULAIRE:
 
@@ -96,6 +88,24 @@ choisirPhrasesOuMots();
  * Cette fonction lance le jeu.
  * Elle demande à l'utilisateur de choisir entre "mots" et "phrases" et lance la boucle de jeu correspondante
  */
+
+function lancerJeu() {
+  let choix = choisirPhrasesOuMots();
+  let score = 0;
+  let nbPropositions = 0;
+
+  if (choix === "mots") {
+    score = lancerBoucleDeJeu(listeMots);
+    nbPropositions = listeMots.length;
+  } else {
+    score = lancerBoucleDeJeu(listePhrases);
+    nbPropositions = listePhrases.length;
+  }
+
+  afficherResultat(score, nbPropositions);
+}
+
+lancerJeu();
 
 // Gestion de l'événement click sur le bouton "valider"
 
