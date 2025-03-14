@@ -4,14 +4,24 @@
  *
  *********************************************************************************/
 
-// lancerJeu();
+lancerJeu()
 
 //On récupère des éléments HTML:
 
 let inputEcriture = document.getElementById("inputEcriture");
 
-let btnValiderMot = document.getElementById("btnValiderMot");
+// console.log(inputEcriture);
 
-let divZoneProposition = document.querySelector(".zoneProposition");
+// let btnValider = document.getElementById("btnValider");
+// console.log(btnValider);
+
+// let ZoneProposition = document.querySelector(".zoneProposition");
+// console.dir(ZoneProposition);
+// console.log(Object.assign({}, ZoneProposition));
 
 let zoneScoreSpan = document.querySelector(".zoneScore span");
+// console.log(zoneScoreSpan);
+// console.table(divZoneProposition);
+
+let listeInputRadio = document.querySelectorAll(".optionSource input");
+// console.log(listeInputRadio);

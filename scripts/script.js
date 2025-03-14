@@ -11,7 +11,7 @@
  */
 
 let afficherResultat = (score, nbMotsProposes) => {
-  prompt(`Votre score est de: ${score} / ${nbMotsProposes}`);
+  zoneScoreSpan.textContent = `${score} / ${nbMotsProposes}`;
 };
 
 /**
@@ -19,17 +19,17 @@ let afficherResultat = (score, nbMotsProposes) => {
  * @param {string} choix : le choix choisi
  */
 
-let choisirPhrasesOuMots = () => {
-  let choix = prompt(
-    "Voulez-vous des phrases ou des mots ? tapez votre souhait svp"
-  );
-  while (choix !== "mots" && choix !== "phrases") {
-    choix = prompt(
-      "Voulez-vous des phrases ou des mots ? tapez votre souhait svp"
-    );
-  }
-  return choix;
-};
+// let choisirPhrasesOuMots = () => {
+//   let choix = prompt(
+//     "Voulez-vous des phrases ou des mots ? tapez votre souhait svp"
+//   );
+//   while (choix !== "mots" && choix !== "phrases") {
+//     choix = prompt(
+//       "Voulez-vous des phrases ou des mots ? tapez votre souhait svp"
+//     );
+//   }
+//   return choix;
+// };
 
 /**
  * Cette fonction affiche une proposition, que le joueur devra recopier,
@@ -37,17 +37,37 @@ let choisirPhrasesOuMots = () => {
  * @param {string} listePropositions : la proposition à afficher
  */
 
-let lancerBoucleDeJeu = (listePropositions) => {
-  let score = 0;
-  for (let i = 0; i < listePropositions.length; i++) {
-    let proposition = prompt(`Tapez la proposition: ${listePropositions[i]}`);
+// let lancerBoucleDeJeu = (listePropositions) => {
+//   let score = 0;
+//   for (let i = 0; i < listePropositions.length; i++) {
+//     let proposition = prompt(`Tapez la proposition: ${listePropositions[i]}`);
 
-    if (proposition === listePropositions[i]) {
-      score++;
-    }
+//     if (proposition === listePropositions[i]) {
+//       score++;
+//     }
+//   }
+//   return score;
+// };
+
+// Cette fonction affiche une proposition, que le joueur devra recopier,
+//  * dans la zone "zoneProposition"
+//  * @param {string} listePropositions : la proposition à afficher
+//  */
+let i = 0;
+
+function afficherProposition(proposition) {
+  let inputEcriture = document.getElementById("inputEcriture");
+  let divZoneProposition = document.querySelector(".zoneProposition");
+  if (i < listeMots.length) {
+    divZoneProposition.textContent = proposition;
+    i++;
+  } else {
+    proposition = divZoneProposition.textContent = "Fin du jeu";
+    btnValider.disabled = true;
   }
-  return score;
-};
+  inputEcriture.value = "";
+  return proposition;
+}
 
 // POPUP FORMULAIRE:
 
@@ -90,22 +110,41 @@ let lancerBoucleDeJeu = (listePropositions) => {
  */
 
 function lancerJeu() {
-  let choix = choisirPhrasesOuMots();
+  // Initialisation
+  // let choix = choisirPhrasesOuMots();
+  // let nbPropositions = 0;
+  let i = 0; //Compteur de propositions affichés
   let score = 0;
-  let nbPropositions = 0;
 
-  if (choix === "mots") {
-    score = lancerBoucleDeJeu(listeMots);
-    nbPropositions = listeMots.length;
-  } else {
-    score = lancerBoucleDeJeu(listePhrases);
-    nbPropositions = listePhrases.length;
-  }
+  let btnValider = document.getElementById("btnValider");
+  let inputEcriture = document.getElementById("inputEcriture");
 
-  afficherResultat(score, nbPropositions);
+  afficherProposition(listeMots[i]); // On affiche le 1er mot au début
+
+  btnValider.addEventListener("click", () => {
+    if (listeMots[i] === inputEcriture.value) {
+      score++;
+      afficherResultat(score, listeMots.length);
+    }
+    i++;
+    afficherProposition(listeMots[i]);
+  });
 }
 
-lancerJeu();
+
+
+
+// if (choix === "mots") {
+//   score = lancerBoucleDeJeu(listeMots);
+//   nbPropositions = listeMots.length;
+// } else {
+//   score = lancerBoucleDeJeu(listePhrases);
+//   nbPropositions = listePhrases.length;
+// }
+
+// afficherResultat(score, nbPropositions);
+
+// lancerJeu();//
 
 // Gestion de l'événement click sur le bouton "valider"
 
