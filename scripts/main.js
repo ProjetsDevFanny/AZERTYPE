@@ -8,7 +8,7 @@ lancerJeu()
 
 //On récupère des éléments HTML:
 
-let inputEcriture = document.getElementById("inputEcriture");
+// let inputEcriture = document.getElementById("inputEcriture");
 
 // console.log(inputEcriture);
 
@@ -19,9 +19,9 @@ let inputEcriture = document.getElementById("inputEcriture");
 // console.dir(ZoneProposition);
 // console.log(Object.assign({}, ZoneProposition));
 
-let zoneScoreSpan = document.querySelector(".zoneScore span");
+
 // console.log(zoneScoreSpan);
 // console.table(divZoneProposition);
 
-let listeInputRadio = document.querySelectorAll(".optionSource input");
-// console.log(listeInputRadio);
+// let listeInputRadio = document.querySelectorAll(".optionSource input");
+// // console.log(listeInputRadio);

@@ -194,7 +194,7 @@ footer {
   */
 
 .popupBackground {
-    display: none;
+    display: none;  /* cachée par défaut */
     position: fixed;
     height: 100vh;
     width: 100vw;
