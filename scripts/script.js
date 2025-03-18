@@ -80,16 +80,26 @@ function lancerJeu() {
   //   event.preventDefault();
   form.addEventListener("submit", (event) => {
     event.preventDefault();
-    let baliseNom = document.getElementById("nom");
-    let nom = baliseNom.value;
 
-    let baliseEmail = document.getElementById("email");
-    let email = baliseEmail.value;
+    const baliseNom = document.getElementById("nom");
+    const nom = baliseNom.value.trim();
+    // const regexNom = new RegExp(); // Synthaxe si la regex est dynamique (avec plusieurs variables)
 
-    console.log(nom, email);
+    console.log(validerNom(nom));
 
-    let scoreEmail = `${score} / ${i}`;
-    afficherEmail(nom, email, scoreEmail);
+    const baliseEmail = document.getElementById("email");
+    const email = baliseEmail.value.trim();
+
+    console.log(validerEmail(email));
+
+    if (validerNom(nom) === true && validerEmail(email) === true) {
+      let scoreEmail = `${score} / ${i}`;
+      afficherEmail(nom, email, scoreEmail);
+    } else {
+      alert(
+        "Veuillez rentrez un nom et un email valide svp (au moins 2 caractères pour le nom)"
+      );
+    }
   });
 
   afficherResultat(score, i);
@@ -115,11 +125,37 @@ function afficherEmail(nom, email, score) {
  * @throws {Error}
  */
 
+function validerNom(nom) {
+  const regexNom = /^[A-Za-zÀ-ÖØ-öø-ÿ0-9' -]{2,}$/;
+  return regexNom.test(nom);
+}
+
+// autre écriture :
+// function validerNom(nom) {
+//   if (nom.length >= 2) {
+//     return true;
+//   }
+//   return false;
+// };
+
 /**
  * Cette fonction prend un email en paramètre et valide qu'il est au bon format.
  * @param {string} email
  * @throws {Error}
  */
+function validerEmail(email) {
+  const regexEmail = /^[\w_-]+@[\w-]+\.[a-z]{2,4}$/i;
+  return regexEmail.test(email);
+}
+
+// autre écriture :
+// function validerEmail(email) {
+//   let regerxEmail = new RegExp ("[a-z0-9._-]+@[a-z0-9._-]+\\.[a-z0-9._-]+");
+//   if(regerxEmail.text(email)) {
+//     return true
+//   }
+//   return false
+// }
 
 /**
  * Cette fonction affiche le message d'erreur passé en paramètre.
